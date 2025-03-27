@@ -1,0 +1,30 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable _____2
+drawable group_462
+drawable group_462_1
+drawable group_462_2
+drawable group_462_3
+drawable group_462_4
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable vector
+id back
+id blue
+id green
+id main
+id purple
+id red
+id vector
+id yellowBtn
+layout activity_main
+layout activity_next
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.Week1_mission
+style Theme.Week1_mission
+xml backup_rules
+xml data_extraction_rules
