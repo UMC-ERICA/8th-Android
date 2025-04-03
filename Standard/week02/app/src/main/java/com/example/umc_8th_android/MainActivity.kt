@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.umc_8th_android.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
 
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.sub_fragment_container) as NavHostFragment
 
         val navController = navHostFragment.navController
 
@@ -30,29 +31,29 @@ class MainActivity : AppCompatActivity() {
         // BottomNavigationView 아이템 선택 리스너 설정
         binding.navBar.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> {
-                    navController.navigate(R.id.fragment_home)
+                R.id.homeFragment -> {
+                    if (navController.currentDestination?.id != R.id.homeFragment)
+                        navController.navigate(R.id.homeFragment)
                     true
                 }
-                R.id.map -> {
-                    navController.navigate(R.id.fragment_map)
+                R.id.mapFragment -> {
+                    if (navController.currentDestination?.id != R.id.mapFragment)
+                        navController.navigate(R.id.mapFragment)
                     true
                 }
-
-                R.id.chat -> {
-                    navController.navigate(R.id.fragment_chat)
+                R.id.chatFragment -> {
+                    if (navController.currentDestination?.id != R.id.chatFragment)
+                        navController.navigate(R.id.chatFragment)
                     true
                 }
-
-                R.id.mypage -> {
-                    navController.navigate(R.id.fragment_mypage)
+                R.id.mypageFragment -> {
+                    if (navController.currentDestination?.id != R.id.mypageFragment)
+                        navController.navigate(R.id.mypageFragment)
                     true
                 }
-
-
                 else -> false
             }
-
         }
+
     }
 }
