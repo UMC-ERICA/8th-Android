@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Mypage Screen"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:textColor="#FFAB91"/>
 
 </FrameLayout>

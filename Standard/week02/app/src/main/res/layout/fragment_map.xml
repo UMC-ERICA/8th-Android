@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Map Screen"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:textColor="#81D4FA"/>
 
 </FrameLayout>
