@@ -5,9 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.umc_flo.databinding.FragmentAlbumBinding
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,14 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AlbumFragment.newInstance] factory method to
+ * Use the [DetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AlbumFragment : Fragment() {
-    lateinit var binding: FragmentAlbumBinding
-
-    private val information = arrayListOf("수록곡", "상세정보", "영상")
-
+class DetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -40,23 +33,9 @@ class AlbumFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAlbumBinding.inflate(inflater,container,false)
-
-        binding.albumBackIv.setOnClickListener {
-            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
-        }
-
-        val albumAdapter = AlbumVPAdapter(this)
-        binding.albumContentVp.adapter = albumAdapter
-        TabLayoutMediator(binding.albumContentTb, binding.albumContentVp){
-            tab, position ->
-            tab.text = information[position]
-        }.attach()
-
-        return binding.root
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_detail, container, false)
     }
-
-
 
     companion object {
         /**
@@ -65,12 +44,12 @@ class AlbumFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment AlbumFragment.
+         * @return A new instance of fragment DetailFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            AlbumFragment().apply {
+            DetailFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
