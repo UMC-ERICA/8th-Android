@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.media3.common.util.Log
 import com.example.umc_flo.databinding.ActivityMainBinding
 
     class MainActivity : AppCompatActivity() {
@@ -25,11 +26,20 @@ import com.example.umc_flo.databinding.ActivityMainBinding
             insets
         }
 
+        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
+
         binding.mainPlayerCl.setOnClickListener {
-            startActivity(Intent(this, SongActivity::class.java))
+            val intent = Intent(this,SongActivity::class.java)
+            intent.putExtra("title", song.title)
+            intent.putExtra("singer", song.singer)
+            startActivity(intent)
+
         }
 
         initBottomNavigation()
+
+
+        //Log.d("Song", song.title + song.singer)
     }
 
         private fun initBottomNavigation(){
