@@ -36,10 +36,10 @@ class SongActivity : AppCompatActivity() {
         }
 
         binding.songMiniplayerIv.setOnClickListener {
-            setPlayerStatus(false)
+            setPlayerStatus(true)
         }
         binding.songPauseIv.setOnClickListener {
-            setPlayerStatus(true)
+            setPlayerStatus(false)
         }
 
 
