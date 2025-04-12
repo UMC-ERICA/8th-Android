@@ -17,9 +17,6 @@ class AlbumFragment : Fragment() {
 
     private lateinit var callback: OnBackPressedCallback
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,6 +29,7 @@ class AlbumFragment : Fragment() {
                 .replace(R.id.main_fragment_container, HomeFragment())
                 .commitAllowingStateLoss()
         }
+
 
         val albumAdapter = AlbumVPAdapter(this)
         binding.albumContentVp.adapter = albumAdapter
