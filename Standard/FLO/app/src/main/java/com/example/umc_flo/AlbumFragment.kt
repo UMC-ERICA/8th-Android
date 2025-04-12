@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.umc_flo.databinding.FragmentAlbumBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class AlbumFragment : Fragment() {
     lateinit var binding : FragmentAlbumBinding
@@ -18,7 +19,15 @@ class AlbumFragment : Fragment() {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
         binding.albumBackIv.setOnClickListener {
-            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_fragment_container, HomeFragment()).commitAllowingStateLoss()
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container, HomeFragment())
+                .commitAllowingStateLoss()
+        }
+
+        val albumAdapter = AlbumVPAdapter(this)
+        binding.albumContentVp.adapter = albumAdapter
+        TabLayoutMediator(binding.albumContentTb, binding.albumContentVp) {
+            tab, position
         }
 
 
