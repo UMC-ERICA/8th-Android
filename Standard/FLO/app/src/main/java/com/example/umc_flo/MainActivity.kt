@@ -19,13 +19,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         enableEdgeToEdge()
 
+        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(), 0, 60, false)
+
         binding.mainPlayerCl.setOnClickListener {
-            val title = binding.mainMiniplayerTitleTv.text.toString()
-            val singer = binding.mainMiniplayerSingerTv.text.toString()
+
 
             val intent = Intent(this, SongActivity::class.java)
-            intent.putExtra("title", title)
-            intent.putExtra("singer", singer)
+            intent.putExtra("title", song.title)
+            intent.putExtra("singer", song.singer)
+            intent.putExtra("second", song.second)
+            intent.putExtra("playtime", song.playtime)
+            intent.putExtra("isPlaying", song.isPlaying)
             startActivity(intent)
 
         }
