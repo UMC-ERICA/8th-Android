@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
         binding.homePannelVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.circleIndicator.setViewPager(binding.homePannelVp)
 
-        
+
         binding.homePannelVp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 sliderHandler.removeCallbacks(sliderRunnable)
