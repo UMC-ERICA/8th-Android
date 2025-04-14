@@ -81,12 +81,12 @@ class MainActivity : AppCompatActivity() {
 
     fun setPlayerStatus(isplaying : Boolean) {
         if(isplaying) {
-            binding.mainMiniplayerBtn.visibility = View.VISIBLE
-            binding.mainPauseBtn.visibility = View.GONE
-        }
-        else {
             binding.mainMiniplayerBtn.visibility = View.GONE
             binding.mainPauseBtn.visibility = View.VISIBLE
+        }
+        else {
+            binding.mainMiniplayerBtn.visibility = View.VISIBLE
+            binding.mainPauseBtn.visibility = View.GONE
         }
     }
 

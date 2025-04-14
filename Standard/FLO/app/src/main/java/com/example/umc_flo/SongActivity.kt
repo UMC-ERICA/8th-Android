@@ -33,10 +33,10 @@ class SongActivity : AppCompatActivity() {
             finish()
         }
         binding.songMiniplayerIv.setOnClickListener {
-            setPlayerStatus(false)
+            setPlayerStatus(true)
         }
         binding.songPauseIv.setOnClickListener {
-            setPlayerStatus(true)
+            setPlayerStatus(false)
         }
 
     }
@@ -72,15 +72,15 @@ class SongActivity : AppCompatActivity() {
 
     fun setPlayerStatus(isPlaying : Boolean) {
         song.isPlaying = isPlaying
-        timer.isplaying = isPlaying
+        timer.isPlaying = isPlaying
 
         if(isPlaying) {
-            binding.songMiniplayerIv.visibility = View.VISIBLE
-            binding.songPauseIv.visibility = View.GONE
-        }
-        else {
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
+        }
+        else {
+            binding.songMiniplayerIv.visibility = View.VISIBLE
+            binding.songPauseIv.visibility = View.GONE
         }
     }
 
@@ -89,7 +89,7 @@ class SongActivity : AppCompatActivity() {
         timer.start()
     }
 
-    inner class Timer(private val playtime : Int, var isplaying: Boolean = true) : Thread() {
+    inner class Timer(private val playtime : Int, var isPlaying: Boolean = true) : Thread() {
         private var second : Int= 0
         private var mills : Float = 0f
 
@@ -100,7 +100,7 @@ class SongActivity : AppCompatActivity() {
                     if (second >= playtime) {
                         break
                     }
-                    if (isplaying) {
+                    if (isPlaying) {
                         sleep(50)
                         mills += 50
 
