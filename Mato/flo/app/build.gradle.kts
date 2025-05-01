@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.media3.common.ktx)
 
     implementation("me.relex:circleindicator:2.1.6") //circleindicator library
+    implementation(libs.gson)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
