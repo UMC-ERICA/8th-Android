@@ -9,7 +9,7 @@ import com.example.umc_flo.databinding.ItemSongBinding
 class SavedSongRVAdapter(private val songs: ArrayList<Song>): RecyclerView.Adapter<SavedSongRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener {
-
+        fun onRemoveSong(songId: Int)
     }
 
     private lateinit var mItemClickListener: MyItemClickListener
@@ -30,18 +30,24 @@ class SavedSongRVAdapter(private val songs: ArrayList<Song>): RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: SavedSongRVAdapter.ViewHolder, position: Int) {
         holder.bind(songs[position])
-        holder.binding.itemSongMoreIv.setOnClickListener {
 
-        }
     }
 
     override fun getItemCount(): Int = songs.size
+
+    private fun removeSong(position: Int){
+        songs.removeAt(position)
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(val binding: ItemSongBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(song: Song) {
             binding.itemSongImgIv.setImageResource(song.coverImg!!)
             binding.itemSongTitleTv.text = song.title
             binding.itemSongSingerTv.text = song.singer
+            binding.itemSongMoreIv.setOnClickListener {
+                removeSong(adapterPosition)
+            }
         }
     }
 }
