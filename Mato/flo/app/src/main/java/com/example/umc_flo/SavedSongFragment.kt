@@ -39,6 +39,9 @@ class SavedSongFragment : Fragment() {
         binding.lockerSavedSongRv.adapter = savedsongRVAdapter
         binding.lockerSavedSongRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+
+
+
         return binding.root
     }
 
