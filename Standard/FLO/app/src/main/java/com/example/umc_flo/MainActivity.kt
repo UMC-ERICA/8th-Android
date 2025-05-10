@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_Umc_flo)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        enableEdgeToEdge()
 
         binding.mainPlayerCl.setOnClickListener {
 

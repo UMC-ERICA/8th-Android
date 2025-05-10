@@ -7,15 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".SavedSongFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/saved_song_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="저장한 곡이 없습니다"
-        android:textSize="15sp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_song"
+        android:layout_marginTop="10dp"
+        android:overScrollMode="never"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

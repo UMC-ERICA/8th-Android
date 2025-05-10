@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.umc_flo.databinding.FragmentSavedSongBinding
-import com.example.umc_flo.databinding.FragmentVideoBinding
 
 class SavedSongFragment : Fragment() {
     lateinit var binding : FragmentSavedSongBinding
+    private val songs = ArrayList<Song>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
