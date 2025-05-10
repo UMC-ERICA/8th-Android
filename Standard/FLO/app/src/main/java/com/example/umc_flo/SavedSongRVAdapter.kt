@@ -5,10 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.umc_flo.databinding.ItemSongBinding
 
-class SavedSongRVAdapter(private val songList: ArrayList<Song>): RecyclerView.Adapter<SavedSongRVAdapter.ViewHolder>() {
-
-
-    private val songs = ArrayList<Song>()
+class SavedSongRVAdapter(private val songs: ArrayList<Song>): RecyclerView.Adapter<SavedSongRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener{
         fun onRemoveSong(songId: Song)
@@ -27,7 +24,7 @@ class SavedSongRVAdapter(private val songList: ArrayList<Song>): RecyclerView.Ad
         notifyDataSetChanged()
     }
 
-    private fun removeSong(position: Int){
+    fun removeSong(position: Int){
         songs.removeAt(position)
         notifyDataSetChanged()
     }
@@ -43,7 +40,7 @@ class SavedSongRVAdapter(private val songList: ArrayList<Song>): RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: SavedSongRVAdapter.ViewHolder, position: Int) {
-        holder.bind(songList[position])
+        holder.bind(songs[position])
         holder.itemView.setOnClickListener{ myItemClickListener.onRemoveSong(songs[position]) }    }
 
     override fun getItemCount(): Int = songs.size
