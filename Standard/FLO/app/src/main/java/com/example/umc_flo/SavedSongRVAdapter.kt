@@ -18,12 +18,6 @@ class SavedSongRVAdapter(private val songs: ArrayList<Song>): RecyclerView.Adapt
         myItemClickListener = itemClickListener
     }
 
-    fun addSongs(songs: ArrayList<Song>) {
-        this.songs.clear()
-        this.songs.addAll(songs)
-        notifyDataSetChanged()
-    }
-
     fun removeSong(position: Int){
         songs.removeAt(position)
         notifyDataSetChanged()
@@ -51,6 +45,9 @@ class SavedSongRVAdapter(private val songs: ArrayList<Song>): RecyclerView.Adapt
             binding.itemSongTitleTv.text = song.title
             binding.itemSongSingerTv.text = song.singer
             binding.itemSongCoverImgIv.setImageResource(song.coverImg!!)
+            binding.moreButtonIv.setOnClickListener {
+                removeSong(adapterPosition)
+            }
         }
     }
 }

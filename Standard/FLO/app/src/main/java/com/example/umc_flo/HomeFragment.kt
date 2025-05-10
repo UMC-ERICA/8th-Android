@@ -1,5 +1,6 @@
 package com.example.umc_flo
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +14,13 @@ import com.example.umc_flo.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 
 class HomeFragment :Fragment() {
+
+    interface AlbumSelectedListener {
+        fun onAlbumSelected(album: Album)
+    }
+
+    private lateinit var albumSelectedListener: AlbumSelectedListener
+
     lateinit var binding: FragmentHomeBinding
     lateinit var adapter: BannerVPAdapter
     private var albumDatas = ArrayList<Album>()
@@ -28,11 +36,22 @@ class HomeFragment :Fragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is AlbumSelectedListener) {
+            albumSelectedListener = context
+        } else {
+            throw RuntimeException("$context must implement AlbumSelectedListener")
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater,
                           container: ViewGroup?,
                           savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+
 
 //        binding.homeAlbumImg1Iv.setOnClickListener {
 //            (context as MainActivity).supportFragmentManager.beginTransaction()
@@ -54,11 +73,18 @@ class HomeFragment :Fragment() {
 
         albumRVAdapter.setMyItemClickListener(object : AlbumRVAdapter.MyItemClickListener {
             override fun onItemClick(album: Album) {
-                (context as MainActivity).supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment_container, AlbumFragment().apply { arguments = Bundle().apply {
-                    val gson = Gson()
-                    val albumJson = gson.toJson(album)
-                }}).commitAllowingStateLoss()
+                albumSelectedListener.onAlbumSelected(album)
+//                val gson = Gson()
+//                val albumJson = gson.toJson(album)
+//
+//                val albumFragment = AlbumFragment()
+//                val bundle = Bundle()
+//                bundle.putString("album", albumJson)
+//                albumFragment.arguments = bundle
+//
+//                (context as MainActivity).supportFragmentManager.beginTransaction()
+//                    .replace(R.id.main_fragment_container, albumFragment)
+//                    .commitAllowingStateLoss()
             }
 
             override fun onRemoveAlbum(position: Int) {

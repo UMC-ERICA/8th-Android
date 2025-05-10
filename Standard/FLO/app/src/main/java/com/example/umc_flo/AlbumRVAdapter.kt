@@ -1,20 +1,20 @@
 package com.example.umc_flo
 
-import android.text.Layout
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.umc_flo.databinding.ItemAlbumBinding
 
-class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>() {
+class AlbumRVAdapter(private val albumList: ArrayList<Album>):
+    RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener{
         fun onItemClick(album: Album)
         fun onRemoveAlbum(position: Int)
     }
 
-        private lateinit var myItemClickListener: MyItemClickListener
+
+        private var myItemClickListener: MyItemClickListener? = null
         fun setMyItemClickListener(itemClickListener: MyItemClickListener) {
             myItemClickListener = itemClickListener
         }
@@ -37,7 +37,7 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
 
     override fun onBindViewHolder(holder: AlbumRVAdapter.ViewHolder, position: Int) {
         holder.bind(albumList[position])
-        holder.itemView.setOnClickListener{ myItemClickListener.onItemClick(albumList[position]) }
+        holder.itemView.setOnClickListener{ myItemClickListener?.onItemClick(albumList[position]) }
 //        holder.binding.itemAlbumTitleTv.setOnClickListener { myItemClickListener.onRemoveAlbum(position) }
 
     }
@@ -50,7 +50,11 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
             binding.itemAlbumTitleTv.text = album.title
             binding.itemAlbumSingerTv.text = album.singer
             binding.itemAlbumCoverImgIv.setImageResource(album.coverImg!!)
+            binding.itemAlbumPlayImgIv.setOnClickListener {
+                myItemClickListener?.onItemClick(album)
+            }
         }
+
     }
 
 }
