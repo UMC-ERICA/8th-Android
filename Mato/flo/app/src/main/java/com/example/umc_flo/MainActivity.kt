@@ -90,9 +90,9 @@ import com.google.gson.Gson
             }
         }
 
-        private fun setMiniPlayer(song: Song){
+        fun setMiniPlayer(song: Song){
             binding.mainMiniplayerTitleTv.text = song.title
-            binding.mainMiniplayerTitleTv.text = song.singer
+            binding.mainMiniplayerSingerTv.text = song.singer
             binding.mainMiniplayerProgressSb.progress = (song.second*100000)/song.playTime
         }
 
