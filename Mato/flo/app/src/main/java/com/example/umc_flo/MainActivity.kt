@@ -97,6 +97,12 @@ class MainActivity : AppCompatActivity() {
             Song("라일락", "아이유(IU)", 0, 60, false, "music_lilac")
         } else {
             gson.fromJson(songJson, Song::class.java)
+
+        fun setMiniPlayer(song: Song){
+            binding.mainMiniplayerTitleTv.text = song.title
+            binding.mainMiniplayerSingerTv.text = song.singer
+            binding.mainMiniplayerProgressSb.progress = (song.second*100000)/song.playTime
+
         }
 
         setMiniPlayer(song)
