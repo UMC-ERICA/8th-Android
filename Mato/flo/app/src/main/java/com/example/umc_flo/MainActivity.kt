@@ -2,6 +2,7 @@ package com.example.umc_flo
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -30,6 +31,13 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        binding.mainMiniplayerPreviousBtn.setOnClickListener {
+            moveSong(-1)
+        }
+        binding.mainMiniplayerNextBtn.setOnClickListener {
+            moveSong(1)
+        }
+
         binding.mainPlayerCl.setOnClickListener {
 
             val intent = Intent(this, SongActivity::class.java)
@@ -52,10 +60,44 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
     }
 
+
     private fun initBottomNavigation() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_frm, HomeFragment())
             .commitAllowingStateLoss()
+
+        private fun moveSong(direction: Int) {
+            val songDB = SongDatabase.getInstance(this)!!
+            val songList = songDB.songDao().getSongs()
+            val nowPos = songList.indexOfFirst { it.id == song.id }
+
+            val newPos = nowPos + direction
+
+            if (newPos < 0) {
+                Toast.makeText(this, "첫 번째 곡입니다", Toast.LENGTH_SHORT).show()
+                return
+            }
+            if (newPos >= songList.size) {
+                Toast.makeText(this, "마지막 곡입니다", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            song = songList[newPos]
+            saveSongToPrefs(song)
+            setMiniPlayer(song)
+        }
+
+        private fun saveSongToPrefs(song: Song) {
+            val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
+            editor.putInt("songId", song.id)
+            editor.apply()
+        }
+
+        private fun initBottomNavigation(){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, HomeFragment())
+                .commitAllowingStateLoss()
+
 
         binding.mainBnv.setOnItemSelectedListener { item ->
             when (item.itemId) {
