@@ -2,6 +2,7 @@
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -34,6 +35,13 @@ import com.google.gson.Gson
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+// 미니 플레이어 이전,다음 버튼
+        binding.mainMiniplayerPreviousBtn.setOnClickListener {
+            moveSong(-1)
+        }
+        binding.mainMiniplayerNextBtn.setOnClickListener {
+            moveSong(1)
+        }
 
 
         binding.mainPlayerCl.setOnClickListener {
@@ -51,6 +59,33 @@ import com.google.gson.Gson
 
         //Log.d("Song", song.title + song.singer)
     }
+
+        private fun moveSong(direction: Int) {
+            val songDB = SongDatabase.getInstance(this)!!
+            val songList = songDB.songDao().getSongs()
+            val nowPos = songList.indexOfFirst { it.id == song.id }
+
+            val newPos = nowPos + direction
+
+            if (newPos < 0) {
+                Toast.makeText(this, "첫 번째 곡입니다", Toast.LENGTH_SHORT).show()
+                return
+            }
+            if (newPos >= songList.size) {
+                Toast.makeText(this, "마지막 곡입니다", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            song = songList[newPos]
+            saveSongToPrefs(song)
+            setMiniPlayer(song)
+        }
+
+        private fun saveSongToPrefs(song: Song) {
+            val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
+            editor.putInt("songId", song.id)
+            editor.apply()
+        }
 
         private fun initBottomNavigation(){
             supportFragmentManager.beginTransaction()
