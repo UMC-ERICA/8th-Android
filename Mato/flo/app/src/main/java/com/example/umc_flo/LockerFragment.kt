@@ -1,10 +1,13 @@
 package com.example.umc_flo
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.collection.emptyIntSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.umc_flo.databinding.FragmentLockerBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -30,10 +33,50 @@ class LockerFragment : Fragment() {
             tab.text = information[position]
         }.attach()
 
+        binding.lockerLoginTv.setOnClickListener {
+            startActivity(Intent(activity, LoginActivity::class.java))
+        }
+
 
 
         return binding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+        initViews()
+    }
+
+    private fun getJwt():Int {
+        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        return spf!!.getInt("jwt",0) //spf에서 가져온 값이 없으면 0을 반환
+    }
+
+    private fun initViews(){
+        val jwt : Int = getJwt()
+        if(jwt == 0){
+            binding.lockerLoginTv.text = "로그인"
+            binding.lockerLoginTv.setOnClickListener {
+                startActivity(Intent(activity, LoginActivity::class.java))
+            }
+        }
+        else{
+            binding.lockerLoginTv.text = "로그아웃"
+            binding.lockerLoginTv.setOnClickListener {
+                logout()
+                startActivity(Intent(activity, MainActivity::class.java))
+            }
+
+        }
+    }
+
+    private fun logout(){
+        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val editor = spf!!.edit()
+        editor.remove("jwt")
+        editor.apply()
+    }
+
 
 
 }
