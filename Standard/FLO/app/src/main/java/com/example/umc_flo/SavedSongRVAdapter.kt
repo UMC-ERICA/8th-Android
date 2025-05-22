@@ -35,7 +35,8 @@ class SavedSongRVAdapter(private val songs: ArrayList<Song>): RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: SavedSongRVAdapter.ViewHolder, position: Int) {
         holder.bind(songs[position])
-        holder.itemView.setOnClickListener{ myItemClickListener.onRemoveSong(songs[position]) }    }
+        holder.itemView.setOnClickListener{ myItemClickListener.onRemoveSong(songs[position]) }
+    }
 
     override fun getItemCount(): Int = songs.size
 
@@ -45,6 +46,13 @@ class SavedSongRVAdapter(private val songs: ArrayList<Song>): RecyclerView.Adapt
             binding.itemSongTitleTv.text = song.title
             binding.itemSongSingerTv.text = song.singer
             binding.itemSongCoverImgIv.setImageResource(song.coverImg!!)
+
+            binding.switchSw.setOnCheckedChangeListener(null)
+            binding.switchSw.isChecked = song.isSwitchOn
+            binding.switchSw.setOnCheckedChangeListener { _, isChecked ->
+                song.isSwitchOn = isChecked
+            }
+
             binding.moreButtonIv.setOnClickListener {
                 removeSong(adapterPosition)
             }
