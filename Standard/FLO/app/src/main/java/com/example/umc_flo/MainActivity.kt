@@ -8,18 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.umc_flo.databinding.ActivityMainBinding
+import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
 
+    private var song: Song = Song()
+    private var gson: Gson = Gson()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Umc_flo)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-
-        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(), 0, 60, false)
 
         binding.mainPlayerCl.setOnClickListener {
 
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("second", song.second)
             intent.putExtra("playtime", song.playtime)
             intent.putExtra("isPlaying", song.isPlaying)
+            intent.putExtra("music", song.music)
             startActivity(intent)
 
         }
@@ -88,6 +92,27 @@ class MainActivity : AppCompatActivity() {
             binding.mainMiniplayerBtn.visibility = View.VISIBLE
             binding.mainPauseBtn.visibility = View.GONE
         }
+    }
+
+    private fun setMiniPlayer(song : Song) {
+        binding.mainMiniplayerTitleTv.text = song.title
+        binding.mainMiniplayerSingerTv.text = song.singer
+        binding.mainMiniplayerProgressSb.progress = (song.second*100000) / song.playtime
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val songJson = sharedPreferences.getString("songData", null)
+
+        song = if(songJson == null) {
+            Song("LILAC", "아이유(IU)", 0, 60, false, "music_psy")
+        } else {
+            gson.fromJson(songJson, Song::class.java)
+        }
+
+        setMiniPlayer(song)
+
     }
 
 }
