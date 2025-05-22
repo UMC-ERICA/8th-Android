@@ -25,7 +25,6 @@ class SongActivity : AppCompatActivity() {
         initSong()
         setPlayer(song)
 
-        enableEdgeToEdge()
 
         val title = intent.getStringExtra("title")
         val singer = intent.getStringExtra("singer")
