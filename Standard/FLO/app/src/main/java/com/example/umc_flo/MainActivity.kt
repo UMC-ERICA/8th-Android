@@ -10,19 +10,23 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.umc_flo.databinding.ActivityMainBinding
 import com.google.gson.Gson
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HomeFragment.AlbumSelectedListener {
 
     lateinit var binding : ActivityMainBinding
 
     private var song: Song = Song()
     private var gson: Gson = Gson()
 
+    override fun onAlbumSelected(album: Album) {
+        binding.mainMiniplayerTitleTv.text = album.title
+        binding.mainMiniplayerSingerTv.text = album.singer
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Umc_flo)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        enableEdgeToEdge()
 
         binding.mainPlayerCl.setOnClickListener {
 
@@ -114,5 +118,6 @@ class MainActivity : AppCompatActivity() {
         setMiniPlayer(song)
 
     }
+
 
 }
