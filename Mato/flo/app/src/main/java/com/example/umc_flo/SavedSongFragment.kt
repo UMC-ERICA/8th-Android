@@ -5,55 +5,46 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.umc_flo.databinding.FragmentSavedSongBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SavedSongFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SavedSongFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentSavedSongBinding
+    private val songs = ArrayList<Song>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved_song, container, false)
+        binding = FragmentSavedSongBinding.inflate(inflater, container, false)
+
+        songs.apply {
+            add(Song("Butter", "방탄소년단 (BTS)", 60, 0, false,"a", R.drawable.img_album_exp))
+            add(Song("Lilac", "아이유 (IU)", 60, 0, false,"a", R.drawable.img_album_exp2))
+            add(Song("Next Level", "에스파 (AESPA)",60, 0, false,"a", R.drawable.img_album_exp3))
+            add(Song("Boy with Luv", "방탄소년단 (BTS)",60, 0, false,"a", R.drawable.img_album_exp4))
+            add(Song("BBoom BBoom", "모모랜드 (MOMOLAND)",60, 0, false,"a", R.drawable.img_album_exp5))
+            add(Song("Weekend", "태연 (Tae Yeon)",60, 0, false,"a", R.drawable.img_album_exp6))
+            add(Song("Butter", "방탄소년단 (BTS)", 60, 0, false,"a", R.drawable.img_album_exp))
+            add(Song("Lilac", "아이유 (IU)", 60, 0, false,"a", R.drawable.img_album_exp2))
+            add(Song("Next Level", "에스파 (AESPA)",60, 0, false,"a", R.drawable.img_album_exp3))
+            add(Song("Boy with Luv", "방탄소년단 (BTS)",60, 0, false,"a", R.drawable.img_album_exp4))
+            add(Song("BBoom BBoom", "모모랜드 (MOMOLAND)",60, 0, false,"a", R.drawable.img_album_exp5))
+            add(Song("Weekend", "태연 (Tae Yeon)",60, 0, false,"a", R.drawable.img_album_exp6))
+        }
+
+        val savedsongRVAdapter = SavedSongRVAdapter(songs)
+        binding.lockerSavedSongRv.adapter = savedsongRVAdapter
+        binding.lockerSavedSongRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SavedSongFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SavedSongFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
+
 }
