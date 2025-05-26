@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.AlbumSelectedListener {
 
         )
         songDB?.songDao()?.insert(
-            Song("Lilac", "아이유 (IU)", 0, 214, false,"music_lilac", R.drawable.img_album_exp2, false)
+            Song("LILAC", "아이유 (IU)", 0, 214, false,"music_lilac", R.drawable.img_album_exp2, false)
 
         )
         songDB?.songDao()?.insert(

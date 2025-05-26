@@ -1,7 +1,5 @@
 package com.example.umc_flo
 
-import android.text.BoringLayout
-import android.widget.Switch
 import androidx.room.*
 
 @Entity(tableName = "SongTable")

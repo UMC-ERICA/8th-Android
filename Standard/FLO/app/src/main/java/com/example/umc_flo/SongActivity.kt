@@ -31,14 +31,6 @@ class SongActivity : AppCompatActivity() {
         initSong()
         initClickListener()
 
-        val title = intent.getStringExtra("title")
-        val singer = intent.getStringExtra("singer")
-
-        binding.songMusicTitleTv.text = title
-        binding.songSingerNameTv.text = singer
-
-
-
     }
 
     override fun onPause() {
