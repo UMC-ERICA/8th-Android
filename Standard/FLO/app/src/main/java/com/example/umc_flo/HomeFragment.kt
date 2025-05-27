@@ -25,6 +25,7 @@ class HomeFragment :Fragment() {
     lateinit var adapter: BannerVPAdapter
     private var albumDatas = ArrayList<Album>()
 
+
     val slideDelay = 2500
     val sliderHandler = Handler(Looper.getMainLooper())
 
@@ -58,15 +59,28 @@ class HomeFragment :Fragment() {
 //                .replace(R.id.main_fragment_container, AlbumFragment())
 //                .commitAllowingStateLoss()
 //        }
-        albumDatas.apply {
-            add(Album("Butter","방탄소년단(BTS)", R.drawable.img_album_exp))
-            add(Album("LILAC","아이유(IU)", R.drawable.img_album_exp2))
-            add(Album("Next Level","에스파(AESPA)", R.drawable.img_album_exp3))
-            add(Album("Boy with Luv","방탄소년단(BTS)", R.drawable.img_album_exp4))
-            add(Album("BBoom BBoom","모모랜드(MOMOLAND)", R.drawable.img_album_exp5))
-            add(Album("Weekend","태연(Tae Yeon", R.drawable.img_album_exp6))
+//        albumDatas.apply {
+//            add(Album("Butter","방탄소년단(BTS)", R.drawable.img_album_exp))
+//            add(Album("LILAC","아이유(IU)", R.drawable.img_album_exp2))
+//            add(Album("Next Level","에스파(AESPA)", R.drawable.img_album_exp3))
+//            add(Album("Boy with Luv","방탄소년단(BTS)", R.drawable.img_album_exp4))
+//            add(Album("BBoom BBoom","모모랜드(MOMOLAND)", R.drawable.img_album_exp5))
+//            add(Album("Weekend","태연(Tae Yeon", R.drawable.img_album_exp6))
+//        }
+
+        val albumDB = SongDatabase.getInstance(requireContext())!!
+        val albumDao = albumDB.albumDao()
+
+        if (albumDao.getAlbums().isEmpty()) {
+            albumDao.insert(Album(1, "Butter", "방탄소년단(BTS)", R.drawable.img_album_exp))
+            albumDao.insert(Album(2, "LILAC", "아이유(IU)", R.drawable.img_album_exp2))
+            albumDao.insert(Album(3, "Next Level", "에스파(AESPA)", R.drawable.img_album_exp3))
+            albumDao.insert(Album(4, "Boy with Luv", "방탄소년단(BTS)", R.drawable.img_album_exp4))
+            albumDao.insert(Album(5, "BBoom BBoom", "모모랜드(MOMOLAND)", R.drawable.img_album_exp5))
+            albumDao.insert(Album(6, "Weekend", "태연(Tae Yeon)", R.drawable.img_album_exp6))
         }
 
+        val albumDatas = ArrayList(albumDao.getAlbums())
         val albumRVAdapter = AlbumRVAdapter(albumDatas)
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

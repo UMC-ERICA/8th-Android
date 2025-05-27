@@ -1,9 +1,14 @@
 package com.example.umc_flo
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -77,6 +82,7 @@ class SongActivity : AppCompatActivity() {
         binding.songLikeIv.setOnClickListener {
             setLike(songs[nowPos].isLike)
         }
+
     }
 
     fun initSong() {
@@ -90,15 +96,21 @@ class SongActivity : AppCompatActivity() {
     }
 
     private fun setLike(isLike: Boolean) {
-        songs[nowPos].isLike = !isLike
-        songDB.songDao().updateIsLikeById(!isLike, songs[nowPos].id)
+        val song = songs[nowPos]
 
-        if (!isLike) {
-            binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
-        } else {
-            binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
-        }
+        song.isLike = !isLike
+
+        songDB.songDao().updateIsLikeById(song.isLike, song.id)
+
+        binding.songLikeIv.setImageResource(
+            if (song.isLike) R.drawable.ic_my_like_on else R.drawable.ic_my_like_off
+        )
+
+        val msg = if (song.isLike) "좋아요가 추가되었습니다" else "좋아요가 취소되었습니다"
+        val icon = if (song.isLike) R.drawable.ic_my_like_on else R.drawable.ic_my_like_off
+        showCustomToast(this, msg, icon)
     }
+
 
     private fun moveSong(direct: Int) {
         if (nowPos + direct < 0) {
@@ -205,4 +217,22 @@ class SongActivity : AppCompatActivity() {
 
         }
     }
+
+    fun showCustomToast(context: Context, message: String, iconResId: Int) {
+        val inflater = LayoutInflater.from(context)
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+
+        val toastText = layout.findViewById<TextView>(R.id.toast_text)
+        val toastIcon = layout.findViewById<ImageView>(R.id.toast_icon)
+
+        toastText.text = message
+        toastIcon.setImageResource(iconResId)
+
+        val toast = Toast(context)
+        toast.view = layout
+        toast.duration = Toast.LENGTH_SHORT
+        toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 150)
+        toast.show()
+    }
+
 }

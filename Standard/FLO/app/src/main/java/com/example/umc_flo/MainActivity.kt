@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.AlbumSelectedListener {
             startActivity(intent)
         }
 
-        binding.mainMiniplayerBtn.setOnClickListener {
+        binding.mainMiniplayerPlayBtn.setOnClickListener {
             setPlayerStatus(false)
         }
         binding.mainPauseBtn.setOnClickListener {
@@ -87,11 +87,11 @@ class MainActivity : AppCompatActivity(), HomeFragment.AlbumSelectedListener {
 
     fun setPlayerStatus(isplaying : Boolean) {
         if(isplaying) {
-            binding.mainMiniplayerBtn.visibility = View.GONE
+            binding.mainMiniplayerPlayBtn.visibility = View.GONE
             binding.mainPauseBtn.visibility = View.VISIBLE
         }
         else {
-            binding.mainMiniplayerBtn.visibility = View.VISIBLE
+            binding.mainMiniplayerPlayBtn.visibility = View.VISIBLE
             binding.mainPauseBtn.visibility = View.GONE
         }
     }
@@ -111,27 +111,27 @@ class MainActivity : AppCompatActivity(), HomeFragment.AlbumSelectedListener {
         }
 
         songDB?.songDao()?.insert(
-            Song("Butter", "방탄소년단 (BTS)", 0, 166, false,"music_butter", R.drawable.img_album_exp, false)
+            Song("Butter", "방탄소년단 (BTS)", 0, 166, false,"music_butter", R.drawable.img_album_exp, false, 1)
 
         )
         songDB?.songDao()?.insert(
-            Song("LILAC", "아이유 (IU)", 0, 214, false,"music_lilac", R.drawable.img_album_exp2, false)
+            Song("LILAC", "아이유 (IU)", 0, 214, false,"music_lilac", R.drawable.img_album_exp2, false, 2)
 
         )
         songDB?.songDao()?.insert(
-            Song("Next Level", "에스파 (AESPA)",0, 221, false,"music_next", R.drawable.img_album_exp3, false)
+            Song("Next Level", "에스파 (AESPA)",0, 221, false,"music_next", R.drawable.img_album_exp3, false, 3)
 
         )
         songDB?.songDao()?.insert(
-            Song("Boy with Luv", "방탄소년단 (BTS)",0, 232, false,"music_boy", R.drawable.img_album_exp4, false)
+            Song("Boy with Luv", "방탄소년단 (BTS)",0, 232, false,"music_boy", R.drawable.img_album_exp4, false, 2)
 
         )
         songDB?.songDao()?.insert(
-            Song("BBoom BBoom", "모모랜드 (MOMOLAND)",0, 209, false,"music_bboom", R.drawable.img_album_exp5, false)
+            Song("BBoom BBoom", "모모랜드 (MOMOLAND)",0, 209, false,"music_bboom", R.drawable.img_album_exp5, false, 4)
 
         )
         songDB?.songDao()?.insert(
-            Song("Weekend", "태연 (Tae Yeon)",0, 240, false,"music_weekend", R.drawable.img_album_exp6, false)
+            Song("Weekend", "태연 (Tae Yeon)",0, 240, false,"music_weekend", R.drawable.img_album_exp6, false, 5)
         )
 
         val _songs = songDB?.songDao()?.getSongs()
