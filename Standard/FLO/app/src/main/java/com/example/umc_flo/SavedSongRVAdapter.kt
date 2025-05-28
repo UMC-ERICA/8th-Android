@@ -9,6 +9,7 @@ import com.example.umc_flo.databinding.ItemSongBinding
 class SavedSongRVAdapter(): RecyclerView.Adapter<SavedSongRVAdapter.ViewHolder>() {
 
     private val songs = ArrayList<Song>()
+    private var isSelectionMode = false
 
     interface MyItemClickListener{
         fun onRemoveSong(songId: Int)
@@ -63,4 +64,8 @@ class SavedSongRVAdapter(): RecyclerView.Adapter<SavedSongRVAdapter.ViewHolder>(
             }
         }
     }
+
+
+
+
 }
