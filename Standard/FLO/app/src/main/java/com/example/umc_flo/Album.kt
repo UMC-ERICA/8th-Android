@@ -1,11 +1,11 @@
 package com.example.umc_flo
 
+import androidx.room.*
+
+@Entity(tableName = "AlbumTable")
 data class Album(
-    var title : String? = "",
-    var singer : String? = "",
-    var coverImg : Int? = null,
-    var songs : ArrayList<Song>? = null
-
-
-
+    @PrimaryKey val id: Int,
+    val title: String,
+    val singer: String,
+    val coverImg: Int
 )

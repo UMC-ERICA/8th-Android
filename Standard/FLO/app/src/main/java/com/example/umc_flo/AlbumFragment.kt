@@ -10,13 +10,15 @@ import androidx.activity.OnBackPressedCallback
 import com.example.umc_flo.databinding.FragmentAlbumBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
+import java.util.ArrayList
 
 
 class AlbumFragment : Fragment() {
-    lateinit var binding : FragmentAlbumBinding
+    private lateinit var binding : FragmentAlbumBinding
 
-    private var gson: Gson = Gson()
     private val information = arrayListOf("수록곡", "상세정보", "영상")
+
+    private var isLiked: Boolean = false
 
     private lateinit var callback: OnBackPressedCallback
 
@@ -28,25 +30,45 @@ class AlbumFragment : Fragment() {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
         val albumJson = arguments?.getString("album")
+        val gson = Gson()
         val album = gson.fromJson(albumJson, Album::class.java)
+
+
         setInit(album)
+        initViewPager()
+        setClickListeners(album)
+
+        return binding.root
+
+    }
+
+    private fun setClickListeners(album: Album) {
+
+        binding.albumLikeIv.setOnClickListener {
+            if(isLiked) {
+                binding.albumLikeIv.setImageResource(R.drawable.ic_my_like_off)
+            } else {
+                binding.albumLikeIv.setImageResource(R.drawable.ic_my_like_on)
+            }
+
+            isLiked = !isLiked
+        }
 
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, HomeFragment())
                 .commitAllowingStateLoss()
         }
+    }
 
 
+    private fun initViewPager() {
         val albumAdapter = AlbumVPAdapter(this)
         binding.albumContentVp.adapter = albumAdapter
         TabLayoutMediator(binding.albumContentTb, binding.albumContentVp) {
-            tab, position ->
+                tab, position ->
             tab.text = information[position]
         }.attach()
-
-        return binding.root
-
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -71,5 +93,11 @@ class AlbumFragment : Fragment() {
         binding.albumAlbumIv.setImageResource(album.coverImg!!)
         binding.albumMusicTitleTv.text = album.title.toString()
         binding.albumSingerNameTv.text = album.singer.toString()
+
+        if(isLiked) {
+            binding.albumLikeIv.setImageResource(R.drawable.ic_my_like_on)
+        } else {
+            binding.albumLikeIv.setImageResource(R.drawable.ic_my_like_off)
+        }
     }
 }
