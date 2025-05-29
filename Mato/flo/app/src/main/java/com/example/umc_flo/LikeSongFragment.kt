@@ -1,6 +1,6 @@
 package com.example.umc_flo
 
-import LikedSongRVAdapter
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.umc_flo.databinding.FragmentLikeSongBinding
+import com.example.umc_flo.LikedSongRVAdapter
+
 
 class LikeSongFragment: Fragment() {
     private lateinit var binding: FragmentLikeSongBinding
