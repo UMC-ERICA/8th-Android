@@ -29,11 +29,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(){
         if(binding.loginIdEt.text.toString().isEmpty() || binding.loginDirectInputEt.text.toString().isEmpty()){
-            Toast.makeText(this,"이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            runOnUiThread {
+                Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
             return
         }
         if(binding.loginPasswordEt.text.toString().isEmpty()){
-            Toast.makeText(this,"비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            runOnUiThread {
+                Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
             return
         }
 

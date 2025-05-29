@@ -38,17 +38,21 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun signUp() {
         if(binding.signUpIdEt.text.toString().isEmpty() || binding.signUpDirectInputEt.text.toString().isEmpty()){
-            Toast.makeText(this,"이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+            runOnUiThread {
+                Toast.makeText(this, "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+            }
             return
         }
         if(binding.signUpPasswordEt.text.toString() != binding.signUpPasswordCheckEt.text.toString()){
-            Toast.makeText(this,"비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+            runOnUiThread {
+                Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+            }
             return
         }
         val userDB = SongDatabase.getInstance(this)!!
         userDB.userDao().insert(getUser())
 
         val user = userDB.userDao().getUsers()
-        //Log.d("SignUpAct",user.toString())
+        Log.d("SignUpAct",user.toString())
     }
 }
