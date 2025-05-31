@@ -45,12 +45,12 @@ class HomeFragment : Fragment() {
 //                .commitAllowingStateLoss()
 //        }
         albumDatas.apply {
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
-            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
-            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
-            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
+            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp, null, "music_butter"))
+            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2, null, "music_lilac"))
+            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3, null, "music_next"))
+            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4, null, "music_boy"))
+            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5, null, "music_bboom"))
+            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6, null, "music_flu"))
         }
 
 
@@ -76,8 +76,19 @@ class HomeFragment : Fragment() {
         albumRVAdapter.setMyItemClickListener(object : AlbumRVAdapter.MyItemClickListener{
             override fun onItemClick(album: Album) {
                 changeAlbumFragment(album)
+            }
 
-
+            override fun onPlayClick(album: Album) {
+                (activity as MainActivity).setMiniPlayer(
+                    Song(
+                        title = album.title,
+                        singer = album.singer,
+                        second = 0,
+                        playTime = 60,
+                        isPlaying = true,
+                        music = album.music
+                    )
+                )
             }
         })
 

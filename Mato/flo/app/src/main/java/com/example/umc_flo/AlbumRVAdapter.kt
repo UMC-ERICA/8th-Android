@@ -3,15 +3,19 @@ package com.example.umc_flo
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.umc_flo.AlbumRVAdapter.MyItemClickListener
 import com.example.umc_flo.databinding.ItemAlbumBinding
 
 class AlbumRVAdapter(private val albumList: ArrayList<Album>) : RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>()
 {
     interface MyItemClickListener{
         fun onItemClick(album: Album)
-
+        fun onPlayClick(album: Album)
 
     }
+
+
+
 
     private lateinit var mItemClickListener: MyItemClickListener
 
@@ -51,6 +55,11 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>) : RecyclerView.Ada
             binding.itemAlbumTitleTv.text = album.title
             binding.itemAlbumSingerTv.text = album.singer
             binding.itemAlbumCoverImgIv.setImageResource(album.coverImg!!)
+
+            //플레이 버튼
+            binding.itemAlbumPlayImgIv.setOnClickListener {
+                mItemClickListener.onPlayClick(album)
+            }
         }
     }
 }
