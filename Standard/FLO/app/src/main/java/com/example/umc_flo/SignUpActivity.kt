@@ -1,5 +1,6 @@
 package com.example.umc_flo
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.umc_flo.databinding.ActivityLoginBinding
 import com.example.umc_flo.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -16,7 +18,9 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_sign_up)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         binding.signUpSignUpBtn.setOnClickListener {
             signUp()
