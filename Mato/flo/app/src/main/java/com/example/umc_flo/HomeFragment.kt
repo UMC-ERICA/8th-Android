@@ -32,6 +32,8 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private lateinit var songDB : SongDatabase
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,14 +46,18 @@ class HomeFragment : Fragment() {
 //                .replace(R.id.main_frm, AlbumFragment())
 //                .commitAllowingStateLoss()
 //        }
-        albumDatas.apply {
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp, null, "music_butter"))
-            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2, null, "music_lilac"))
-            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3, null, "music_next"))
-            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4, null, "music_boy"))
-            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5, null, "music_bboom"))
-            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6, null, "music_flu"))
-        }
+
+        songDB = SongDatabase.getInstance(requireContext())!!
+        albumDatas.addAll(songDB.albumDao().getAlbums())
+
+//        albumDatas.apply {
+//            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp, null, "music_butter"))
+//            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2, null, "music_lilac"))
+//            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3, null, "music_next"))
+//            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4, null, "music_boy"))
+//            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5, null, "music_bboom"))
+//            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6, null, "music_flu"))
+//        }
 
 
         val bannerAdapter = BannerVPAdapter(this)
