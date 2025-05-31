@@ -1,5 +1,6 @@
 package com.example.umc_flo
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +26,10 @@ class LockerFragment : Fragment() {
         TabLayoutMediator(binding.lockerContentTb, binding.lockerContentVp) { tab, position ->
             tab.text = information[position]
         }.attach()
+
+        binding.lockerLoginTv.setOnClickListener {
+            startActivity(Intent(activity, LoginActivity::class.java))
+        }
 
         return binding.root
     }
