@@ -2,11 +2,13 @@ package com.example.umc_flo
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import com.example.umc_flo.databinding.FragmentAlbumBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
@@ -32,23 +34,25 @@ class AlbumFragment : Fragment() {
         val albumJson = arguments?.getString("album")
         val gson = Gson()
         val album = gson.fromJson(albumJson, Album::class.java)
-
-
+        isLiked = isLikedAlbum(album.id)
         setInit(album)
         initViewPager()
-        setClickListeners(album)
+        setOnClickListeners(album)
 
         return binding.root
 
     }
 
-    private fun setClickListeners(album: Album) {
+    private fun setOnClickListeners(album: Album) {
 
+        val userId: Int = getJwt()
         binding.albumLikeIv.setOnClickListener {
             if(isLiked) {
                 binding.albumLikeIv.setImageResource(R.drawable.ic_my_like_off)
+                disLikedAlbum(album.id)
             } else {
                 binding.albumLikeIv.setImageResource(R.drawable.ic_my_like_on)
+                likeAlbum(userId, album.id)
             }
 
             isLiked = !isLiked
@@ -100,4 +104,36 @@ class AlbumFragment : Fragment() {
             binding.albumLikeIv.setImageResource(R.drawable.ic_my_like_off)
         }
     }
+
+    private fun likeAlbum(userId: Int, albumId: Int) {
+        val songDB = SongDatabase.getInstance(requireContext())!!
+        val like = Like(userId, albumId)
+
+        songDB.albumDao().likeAlbum(like)
+    }
+
+    private fun isLikedAlbum(albumId: Int): Boolean {
+        val songDB = SongDatabase.getInstance(requireContext())!!
+        val userId = getJwt()
+
+        val likeId: Int? = songDB.albumDao().isLikedAlbum(userId, albumId)
+
+        return likeId != null
+    }
+
+    private fun disLikedAlbum(albumId: Int) {
+        val songDB = SongDatabase.getInstance(requireContext())!!
+        val userId = getJwt()
+
+        songDB.albumDao().disLikedAlbum(userId, albumId)
+    }
+
+    private fun getJwt(): Int {
+        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val jwt = spf!!.getInt("jwt", 0)
+        Log.d("MAIN_ACT/GET_JWT", "jwt_token: $jwt")
+
+        return jwt
+    }
+
 }

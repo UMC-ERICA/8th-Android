@@ -19,6 +19,7 @@ class HomeFragment :Fragment() {
         fun onAlbumSelected(album: Album)
     }
 
+    private lateinit var songDB : SongDatabase
     private lateinit var albumSelectedListener: AlbumSelectedListener
 
     lateinit var binding: FragmentHomeBinding
@@ -52,7 +53,8 @@ class HomeFragment :Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-
+        songDB = SongDatabase.getInstance(requireContext())!!
+        albumDatas.addAll(songDB.albumDao().getAlbums())
 
 //        binding.homeAlbumImg1Iv.setOnClickListener {
 //            (context as MainActivity).supportFragmentManager.beginTransaction()
@@ -88,17 +90,17 @@ class HomeFragment :Fragment() {
         albumRVAdapter.setMyItemClickListener(object : AlbumRVAdapter.MyItemClickListener {
             override fun onItemClick(album: Album) {
                 albumSelectedListener.onAlbumSelected(album)
-//                val gson = Gson()
-//                val albumJson = gson.toJson(album)
-//
-//                val albumFragment = AlbumFragment()
-//                val bundle = Bundle()
-//                bundle.putString("album", albumJson)
-//                albumFragment.arguments = bundle
-//
-//                (context as MainActivity).supportFragmentManager.beginTransaction()
-//                    .replace(R.id.main_fragment_container, albumFragment)
-//                    .commitAllowingStateLoss()
+                val gson = Gson()
+                val albumJson = gson.toJson(album)
+
+                val albumFragment = AlbumFragment()
+                val bundle = Bundle()
+                bundle.putString("album", albumJson)
+                albumFragment.arguments = bundle
+
+                (context as MainActivity).supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, albumFragment)
+                    .commitAllowingStateLoss()
             }
 
             override fun onRemoveAlbum(position: Int) {
